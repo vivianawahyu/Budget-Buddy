@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.christ_javafx.RegisterController" style="-fx-background-color: #B0A695;">
+
+    <children>
+        <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+            <Label text="Register" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #393232;" />
+            <TextField fx:id="usernameField" promptText="Username" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
+            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Konfirmasi Password" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
+            <Button text="Register" onAction="#handleRegister" maxWidth="100" style="-fx-background-color: #776B5D; -fx-text-fill: white;"/>
+            <Hyperlink text="Sudah punya akun? Login di sini" onAction="#goToLogin" style="-fx-text-fill: #393232;"/>
+        </VBox>
+    </children>
+</AnchorPane>

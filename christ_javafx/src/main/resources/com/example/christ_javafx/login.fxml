@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.christ_javafx.LoginController" style="-fx-background-color: #B0A695;">
+
+    <children>
+        <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+            <Label text="Login" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #393232;" />
+            <TextField fx:id="usernameField" promptText="Username" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
+            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
+            <Button text="Login" onAction="#handleLogin" maxWidth="100" style="-fx-background-color: #776B5D; -fx-text-fill: white;"/>
+            <Hyperlink text="Belum punya akun? Daftar di sini" onAction="#goToRegister" style="-fx-text-fill: #393232;"/>
+        </VBox>
+    </children>
+</AnchorPane>
