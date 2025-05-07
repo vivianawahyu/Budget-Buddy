@@ -5,15 +5,26 @@
 <?import javafx.geometry.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.christ_javafx.LoginController" style="-fx-background-color: #B0A695;">
+            fx:controller="com.example.christ_javafx.LoginController" style="-fx-background-color: #FFDBDB;">
 
     <children>
-        <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
-            <Label text="Login" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #393232;" />
-            <TextField fx:id="usernameField" promptText="Username" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
-            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
-            <Button text="Login" onAction="#handleLogin" maxWidth="100" style="-fx-background-color: #776B5D; -fx-text-fill: white;"/>
-            <Hyperlink text="Belum punya akun? Daftar di sini" onAction="#goToRegister" style="-fx-text-fill: #393232;"/>
-        </VBox>
+        <Pane layoutY="-9.0" prefHeight="375.0" prefWidth="274.0">
+            <children>
+                <Button layoutX="81.0" layoutY="323.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" style="-fx-background-color: #3A59D1; -fx-text-fill: #FFFDF6;" text="Daftar sekarang" />
+                <Label layoutX="112.0" layoutY="50.0" text="LOGIN">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Button layoutX="25.0" layoutY="246.0" maxWidth="226.0" onAction="#handleLogin" prefHeight="26.0" prefWidth="226.0" style="-fx-background-color: #3A59D1; -fx-text-fill: white;" text="Login" />
+                <Hyperlink layoutX="69.0" layoutY="289.0" onAction="#goToRegister" style="-fx-text-fill: #393232;" text="Belum mempunyai akun" />
+                <Label layoutX="162.0" layoutY="210.0" text="Lupa Password" />
+            </children>
+        </Pane>
+        <PasswordField layoutX="40.0" layoutY="109.0" prefHeight="26.0" prefWidth="196.0" />
+        <VBox alignment="CENTER" spacing="15.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
+        <Label layoutX="40.0" layoutY="91.0" text="USERNAME" />
+        <PasswordField layoutX="40.0" layoutY="166.0" prefHeight="26.0" prefWidth="196.0" />
+        <Label layoutX="39.0" layoutY="148.0" text="PASSWORD" />
     </children>
 </AnchorPane>

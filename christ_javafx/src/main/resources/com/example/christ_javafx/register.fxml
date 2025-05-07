@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.christ_javafx.RegisterController" style="-fx-background-color: #B0A695;">
+<AnchorPane prefHeight="354.0" prefWidth="270.0" style="-fx-background-color: #FFDBDB;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.christ_javafx.RegisterController">
 
     <children>
-        <VBox spacing="15.0" alignment="CENTER" AnchorPane.topAnchor="30.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
-            <Label text="Register" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #393232;" />
-            <TextField fx:id="usernameField" promptText="Username" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
-            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
-            <PasswordField fx:id="confirmPasswordField" promptText="Konfirmasi Password" maxWidth="250" style="-fx-background-color: #FFFFFF; -fx-border-color: #776B5D; -fx-border-width: 1px;"/>
-            <Button text="Register" onAction="#handleRegister" maxWidth="100" style="-fx-background-color: #776B5D; -fx-text-fill: white;"/>
-            <Hyperlink text="Sudah punya akun? Login di sini" onAction="#goToLogin" style="-fx-text-fill: #393232;"/>
+      <Button layoutX="105.0" layoutY="262.0" mnemonicParsing="false" text="Daftar" />
+        <VBox alignment="CENTER" spacing="15.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #393232;" text="Register" />
         </VBox>
+      <Label layoutX="40.0" layoutY="132.0" text="Masukkan Email" />
+      <PasswordField layoutX="34.0" layoutY="99.0" prefHeight="26.0" prefWidth="212.0" />
+      <PasswordField layoutX="34.0" layoutY="150.0" prefHeight="26.0" prefWidth="212.0" />
+      <PasswordField layoutX="34.0" layoutY="204.0" prefHeight="26.0" prefWidth="212.0" />
+      <Label layoutX="34.0" layoutY="74.0" text="Nama " />
+      <Label layoutX="40.0" layoutY="186.0" text="Password" />
+      <Label layoutX="95.0" layoutY="322.0" text="Login sekarang" />
+      <Label layoutX="83.0" layoutY="304.0" text="Sudah punya akun?" />
     </children>
 </AnchorPane>
