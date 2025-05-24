@@ -1,4 +1,4 @@
 package com.example.christ_javafx;
 
-public class TambahTransaksi {
+public class EditController {
 }
