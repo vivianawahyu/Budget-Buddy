@@ -3,12 +3,10 @@ package Data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class SqlDriver implements  DatabaseDriver{
+public class SqlDriver implements DatabaseDriver {
 
-
-    private final String DB_URL = "jdbc:sqlite:catatanku.db";
+    private final String DB_URL = "jdbc:sqlite:budget_buddy_sqlite.db"; // Ganti ke path yang benar
     private Connection connection;
 
     private static volatile SqlDriver instance = null;
@@ -18,14 +16,11 @@ public class SqlDriver implements  DatabaseDriver{
 
     public static SqlDriver getInstance() {
         if (instance == null) {
-            // To make thread safe
             synchronized (SqlDriver.class) {
-                // check again as multiple threads
-                // can reach above step
                 if (instance == null) {
                     instance = new SqlDriver();
                     instance.getConnection();
-                    instance.PreparedSchema();
+                    // instance.PreparedSchema(); // Nonaktifkan jika pakai DB file jadi
                 }
             }
         }
@@ -34,15 +29,20 @@ public class SqlDriver implements  DatabaseDriver{
 
     @Override
     public Connection getConnection() {
-        if (connection == null) {
-            try {
+        try {
+            if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(DB_URL);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Handle database connection error
+//                System.out.println("✅ Koneksi baru ke database dibuat.");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return connection;
+    }
+
+    @Override
+    public void PreparedSchema() {
+        // Kosongkan atau isi sesuai kebutuhan jika perlu generate DB baru
     }
 
     public void closeConn() {
@@ -51,27 +51,7 @@ public class SqlDriver implements  DatabaseDriver{
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Handle database connection closure error
             }
         }
     }
-
-    @Override
-    public void PreparedSchema() {
-        // Create database tables if they don't exist
-        // Implement this method to create tables for users, courses, classes, and attendance records
-        String mhsTableSql = "CREATE TABLE IF NOT EXISTS Transaksi ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "judul TEXT NOT NULL,"
-                + "konten TEXT NOT NULL,"
-                + "kategori TEXT NOT NULL"
-                + ")";
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute(mhsTableSql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle table creation error
-        }
-    }
 }
-
