@@ -1,8 +1,14 @@
 package com.example.christ_javafx;
 
+import Data.SqlDriver;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController {
     @FXML
@@ -12,14 +18,29 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
-        String user = this.usernameField.getText();
-        String pass = this.passwordField.getText();
-        if (user.equals("admin") && pass.equals("123")) {
-            System.out.println("Login sukses!");
-        } else {
-            System.out.println("Login gagal!");
-        }
+        String user = this.usernameField.getText().trim();
+        String pass = this.passwordField.getText().trim();
 
+        try (Connection conn = SqlDriver.getInstance().getConnection()) {
+            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, user);
+                stmt.setString(2, pass); // Disarankan untuk pakai hashing di produksi
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    System.out.println("✅ Login sukses sebagai " + user);
+                    // Simpan ID pengguna ke sesi global jika perlu
+                    Apps.showRegister(); // Ganti dengan tampilan utama aplikasi Anda
+                } else {
+                    System.out.println("❌ Login gagal! Username atau password salah.");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Gagal mengakses database: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -27,3 +48,33 @@ public class LoginController {
         Apps.showRegister();
     }
 }
+
+//package com.example.christ_javafx;
+//
+//import javafx.fxml.FXML;
+//import javafx.scene.control.PasswordField;
+//import javafx.scene.control.TextField;
+//
+//public class LoginController {
+//    @FXML
+//    private TextField usernameField;
+//    @FXML
+//    private PasswordField passwordField;
+//
+//    @FXML
+//    private void handleLogin() {
+//        String user = this.usernameField.getText();
+//        String pass = this.passwordField.getText();
+//        if (user.equals("admin") && pass.equals("123")) {
+//            System.out.println("Login sukses!");
+//        } else {
+//            System.out.println("Login gagal!");
+//        }
+//
+//    }
+//
+//    @FXML
+//    private void goToRegister() {
+//        Apps.showRegister();
+//    }
+//}
