@@ -36,41 +36,41 @@
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="35.0" prefHeight="27.0" prefWidth="109.0" text="Beranda" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="35.0" onMouseClicked="#handleBeranda" prefHeight="27.0" prefWidth="109.0" text="Beranda" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="62.0" prefHeight="24.0" prefWidth="109.0" text="Tambah Transaksi" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="62.0" onMouseClicked="#handleTambahTransaksi" prefHeight="24.0" prefWidth="109.0" text="Tambah Transaksi" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="180.0" prefHeight="24.0" prefWidth="109.0" text="Logout" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="180.0" onMouseClicked="#handleLogOut" prefHeight="24.0" prefWidth="109.0" text="Logout" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
                                 <BorderPane layoutX="-3.0" layoutY="134.0" prefHeight="20.0" prefWidth="144.0" style="-fx-background-color: black;">
                            <top>
-                                      <Label prefHeight="24.0" prefWidth="109.0" text="Batas Pengeluaran" textFill="WHITE" BorderPane.alignment="CENTER">
+                                      <Label onMouseClicked="#handleBatasPengeluaran" prefHeight="24.0" prefWidth="109.0" text="Batas Pengeluaran" textFill="WHITE" BorderPane.alignment="CENTER">
                                           <font>
                                               <Font name="System Bold" size="11.0" />
                                           </font>
                                       </Label>
                            </top>
                                 </BorderPane>
-                                <Label layoutX="21.0" layoutY="110.0" prefHeight="24.0" prefWidth="109.0" text="Filter Transaksi" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="110.0" onMouseClicked="#handleFilterTransaksi" prefHeight="24.0" prefWidth="109.0" text="Filter Transaksi" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="158.0" prefHeight="24.0" prefWidth="109.0" text="Riwayat Edit" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="158.0" onMouseClicked="#handleRiwayatEdit" prefHeight="24.0" prefWidth="109.0" text="Riwayat Edit" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                  <Label layoutX="21.0" layoutY="86.0" prefHeight="24.0" prefWidth="109.0" text="Data Transaksi" textFill="WHITE">
+                                  <Label layoutX="21.0" layoutY="86.0" onMouseClicked="#handleDataTransaksi" prefHeight="24.0" prefWidth="109.0" text="Data Transaksi" textFill="WHITE">
                                       <font>
                                           <Font name="System Bold" size="11.0" />
                                       </font>
