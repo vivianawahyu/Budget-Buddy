@@ -16,7 +16,7 @@ public class Apps extends Application {
 
     public static void showLogin() {
         try {
-            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("login.fxml"));
             Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)300.0F);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Login");
@@ -29,7 +29,7 @@ public class Apps extends Application {
 
     public static void showRegister() {
         try {
-            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/register.fxml"));
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("register.fxml"));
             Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Register");
@@ -39,6 +39,7 @@ public class Apps extends Application {
         }
 
     }
+
 
     public static void main(String[] args) {
         launch(args);
