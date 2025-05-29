@@ -51,6 +51,9 @@ public class BerandaController {
     public void handleFilterTransaksi() {Apps.showfilterKategori();}
 
     @FXML
+    public void handleEdit() {Apps.showedit();}
+
+    @FXML
     public void handleRiwayatEdit() {Apps.showRiwayatEdit();}
 
     @FXML
