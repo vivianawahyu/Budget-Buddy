@@ -40,7 +40,135 @@ public class Apps extends Application {
 
     }
 
+    public static void showberanda() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/beranda.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Beranda");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static void showbatasPengeluaran() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/batas-pengeluaran.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Batas Pengeluaran");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showtambahTransaksi() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/tambahTransaksi.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Tambah Transaksi");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showdataTransaksi() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/data-transaksi.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Data Transaksi");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showedit() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/edit.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Edit");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showfilterKategori() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/filter-kategori.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Filter Kategori");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showLimit() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/Limit.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Limit");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showlupaPassword() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/lupaPassword.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Lupa Password");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void showRingkasan() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/Ringkasan.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Ringkasan");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showRiwayatEdit() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/Riwayat-edit.fxml"));
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Riwayat Edit");
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     public static void main(String[] args) {
+
         launch(args);
     }
 }

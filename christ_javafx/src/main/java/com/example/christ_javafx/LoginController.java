@@ -31,7 +31,7 @@ public class LoginController {
                 if (rs.next()) {
                     System.out.println("✅ Login sukses sebagai " + user);
                     // Simpan ID pengguna ke sesi global jika perlu
-                    Apps.showRegister(); // Ganti dengan tampilan utama aplikasi Anda
+                    Apps.showberanda(); // Ganti dengan tampilan utama aplikasi Anda
                 } else {
                     System.out.println("❌ Login gagal! Username atau password salah.");
                 }

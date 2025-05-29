@@ -33,41 +33,41 @@
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="35.0" prefHeight="27.0" prefWidth="109.0" text="Beranda" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="35.0" onMouseClicked="#handleBeranda" prefHeight="27.0" prefWidth="109.0" text="Beranda" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="62.0" prefHeight="24.0" prefWidth="109.0" text="Tambah Transaksi" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="62.0" onMouseClicked="#handleTambahTransaksi" prefHeight="24.0" prefWidth="109.0" text="Tambah Transaksi" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="86.0" prefHeight="24.0" prefWidth="109.0" text="Data Transaksi" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="86.0" onMouseClicked="#handleDataTransaksi" prefHeight="24.0" prefWidth="109.0" text="Data Transaksi" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="134.0" prefHeight="24.0" prefWidth="109.0" text="Batas Pengeluaran" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="134.0" onMouseClicked="#handleBatasPengeluaran" prefHeight="24.0" prefWidth="109.0" text="Batas Pengeluaran" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="21.0" layoutY="180.0" prefHeight="24.0" prefWidth="109.0" text="Logout" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="180.0" onMouseClicked="#handleLogOut" prefHeight="24.0" prefWidth="109.0" text="Logout" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="11.0" />
                                     </font>
                                 </Label>
                                 <BorderPane layoutX="-1.0" layoutY="160.0" prefHeight="20.0" prefWidth="144.0" style="-fx-background-color: black;">
                            <center>
-                                      <Label prefHeight="24.0" prefWidth="109.0" text="Riwayat Edit" textFill="WHITE" BorderPane.alignment="CENTER">
+                               <Label onMouseClicked="#handleRiwayatEdit" prefHeight="24.0" prefWidth="109.0" text="Riwayat Edit" textFill="WHITE" BorderPane.alignment="CENTER">
                                           <font>
                                               <Font name="System Bold" size="11.0" />
                                           </font>
                                       </Label>
                            </center>
                                 </BorderPane>
-                                  <Label layoutX="21.0" layoutY="110.0" prefHeight="24.0" prefWidth="109.0" text="Filter Transaksi" textFill="WHITE">
+                                <Label layoutX="21.0" layoutY="110.0" onMouseClicked="#handleFilterTransaksi" prefHeight="24.0" prefWidth="109.0" text="Filter Transaksi" textFill="WHITE">
                                       <font>
                                           <Font name="System Bold" size="11.0" />
                                       </font>
@@ -87,13 +87,13 @@
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
                                 <Pane layoutX="3.0" layoutY="215.0" prefHeight="189.0" prefWidth="499.0" />
-                                  <TableView layoutX="2.0" layoutY="56.0" prefHeight="379.0" prefWidth="596.0">
+                                  <TableView fx:id="tableRiwayat" layoutX="2.0" layoutY="56.0" prefHeight="379.0" prefWidth="596.0">
                                       <columns>
-                                          <TableColumn prefWidth="75.0" text="Tanggal " />
-                                          <TableColumn prefWidth="75.0" text="ID " />
-                                          <TableColumn prefWidth="75.0" text="Aksi" />
-                                          <TableColumn prefWidth="189.3333740234375" text="Sebelum" />
-                              <TableColumn prefWidth="189.3333740234375" text="Sesudah" />
+                                          <TableColumn fx:id="colTanggalEdit" prefWidth="75.0" text="Tanggal " />
+                                          <TableColumn fx:id="colIdTransaksi" prefWidth="75.0" text="ID " />
+                                          <TableColumn fx:id="colAksi" prefWidth="75.0" text="Aksi" />
+                                          <TableColumn fx:id="colSebelum" prefWidth="189.3333740234375" text="Sebelum" />
+                                          <TableColumn fx:id="colSesudah" prefWidth="189.3333740234375" text="Sesudah" />
                                       </columns>
                                   </TableView>
                         <Label layoutX="12.0" layoutY="38.0" prefHeight="18.0" prefWidth="129.0" text="Tabel Riwayat Edit">
