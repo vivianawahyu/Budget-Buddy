@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 
 
 import java.io.IOException;
@@ -45,7 +47,6 @@ public class DataTransaksiController {
         Apps.showdataTransaksi();
     }
 
-
     @FXML
     public void handleBatasPengeluaran() {
         Apps.showbatasPengeluaran();
@@ -54,6 +55,35 @@ public class DataTransaksiController {
     @FXML
     public void handleFilterTransaksi() {
         Apps.showfilterKategori();
+    }
+
+    @FXML
+    private void handleedit(MouseEvent event) {
+        if (event.getClickCount() == 2) { // double click
+            Transaksi selected = tableTransaksi.getSelectionModel().getSelectedItem();
+            System.out.println("Table clicked"); // ← Tambahkan ini untuk tes
+            if (selected != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/christ_javafx/edit.fxml"));
+                    Parent root = loader.load();
+
+                    EditController controller = loader.getController();
+                    controller.setTransaksi(selected);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Edit Transaksi");
+                    stage.initModality(Modality.APPLICATION_MODAL); // blok window sebelumnya
+                    stage.showAndWait();
+
+                    // refresh table setelah edit
+                    loadData(); // method kamu untuk reload isi tabel
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @FXML
@@ -110,7 +140,7 @@ public class DataTransaksiController {
                             rs.getString("tgl_transaksi"),
                             rs.getString("kategori"),
                             rs.getString("type"),
-                            rs.getDouble("nominal"),
+                            rs.getDouble("amount"),
                             rs.getString("note")
                     );
                     transaksiList.add(t);
