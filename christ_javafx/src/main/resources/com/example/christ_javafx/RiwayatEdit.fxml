@@ -87,12 +87,13 @@
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
                                 <Pane layoutX="3.0" layoutY="215.0" prefHeight="189.0" prefWidth="499.0" />
-                                  <TableView layoutX="2.0" layoutY="56.0" prefHeight="379.0" prefWidth="596.0">
+                                  <TableView fx:id="tableRiwayat" layoutX="2.0" layoutY="56.0" prefHeight="379.0" prefWidth="596.0">
                                       <columns>
-                                          <TableColumn prefWidth="75.0" text="Tanggal " />
-                                          <TableColumn prefWidth="75.0" text="ID " />
-                                          <TableColumn prefWidth="75.0" text="Aksi" />
-                                          <TableColumn prefWidth="189.3333740234375" text="Sebelum" />
+                                          <TableColumn fx:id="colTanggalEdit" prefWidth="75.0" text="Tanggal " />
+                                          <TableColumn fx:id="colIdTransaksi" prefWidth="75.0" text="ID " />
+                                          <TableColumn fx:id="colAksi" prefWidth="75.0" text="Aksi" />
+                                          <TableColumn fx:id="colSebelum" prefWidth="189.3333740234375" text="Sebelum" />
+                                          <TableColumn fx:id="colSesudah" prefWidth="189.3333740234375" text="Sesudah" />
                               <TableColumn prefWidth="189.3333740234375" text="Sesudah" />
                                       </columns>
                                   </TableView>
