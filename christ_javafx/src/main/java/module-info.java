@@ -14,5 +14,8 @@ module com.example.christ_javafx {
     requires java.desktop;
 
     opens com.example.christ_javafx to javafx.fxml;
+    opens Data to javafx.base;
+
     exports com.example.christ_javafx;
+    exports Data;
 }

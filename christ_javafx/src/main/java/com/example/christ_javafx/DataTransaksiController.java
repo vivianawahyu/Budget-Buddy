@@ -58,7 +58,7 @@ public class DataTransaksiController {
     }
 
     @FXML
-    private void handleedit(MouseEvent event) {
+    private void handleedit (MouseEvent event) {
         if (event.getClickCount() == 2) { // double click
             Transaksi selected = tableTransaksi.getSelectionModel().getSelectedItem();
             System.out.println("Table clicked"); // ← Tambahkan ini untuk tes
@@ -153,6 +153,9 @@ public class DataTransaksiController {
                 alert.setContentText("Tidak Ditemukan");
                 alert.showAndWait();
             }
+
+            tableTransaksi.setItems(transaksiList);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
