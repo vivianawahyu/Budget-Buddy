@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.chart.BarChart?>
 <AnchorPane prefHeight="552.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.christ_javafx.BerandaController">
     <children>
         <BorderPane layoutX="-1.0" prefHeight="562.0" prefWidth="836.0">
@@ -102,7 +103,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </Label>
-                                    <Label layoutX="51.0" layoutY="24.0" prefHeight="35.0" prefWidth="43.0" text="Rp 0">
+                                    <Label fx:id="labelSaldo" layoutX="5.0" layoutY="24.0" prefHeight="35.0" prefWidth="154.0" text="Rp 0">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -125,7 +126,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </Label>
-                                    <Label layoutX="63.0" layoutY="24.0" prefHeight="35.0" prefWidth="43.0" text="Rp 0">
+                                    <Label fx:id="labelPemasukan" layoutX="2.0" layoutY="24.0" prefHeight="35.0" prefWidth="174.0" text="Rp 0">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -148,7 +149,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </Label>
-                                    <Label layoutX="69.0" layoutY="24.0" prefHeight="35.0" prefWidth="43.0" text="Rp 0">
+                                    <Label fx:id="labelPengeluaran" layoutX="3.0" layoutY="24.0" prefHeight="35.0" prefWidth="187.0" text="Rp 0">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -175,14 +176,14 @@
                               </Label>
                               <VBox layoutX="-4.0" layoutY="26.0" prefHeight="163.0" prefWidth="315.0">
                                  <children>
-                                    <AreaChart>
-                                      <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
-                                      </xAxis>
-                                      <yAxis>
-                                        <NumberAxis side="LEFT" />
-                                      </yAxis>
-                                    </AreaChart>
+                                     <BarChart fx:id="barChartKeuangan" layoutX="14.0" layoutY="180.0" prefHeight="320.0" prefWidth="500.0" title="Grafik Keuangan Bulanan">
+                                         <xAxis>
+                                             <CategoryAxis label="Bulan"/>
+                                         </xAxis>
+                                         <yAxis>
+                                             <NumberAxis label="Jumlah (Rp)"/>
+                                         </yAxis>
+                                     </BarChart>
                                  </children>
                               </VBox>
                            </children>
@@ -196,7 +197,7 @@
                               </Label>
                               <VBox layoutX="7.0" layoutY="25.0" prefHeight="158.0" prefWidth="304.0">
                                  <children>
-                                    <PieChart prefHeight="184.0" prefWidth="334.0">
+                                    <PieChart fx:id="PieChart" prefHeight="184.0" prefWidth="334.0">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
@@ -214,13 +215,13 @@
                               </Label>
                               <HBox layoutX="9.0" layoutY="27.0" prefHeight="124.0" prefWidth="652.0">
                                  <children>
-                                    <TableView fx:id="idTableTransaksiTerbaru" prefHeight="124.0" prefWidth="656.0">
+                                    <TableView fx:id="tableTransaksi" onMouseClicked="#handleEdit" prefHeight="124.0" prefWidth="656.0">
                                       <columns>
-                                        <TableColumn prefWidth="94.0" text="Tanggal" />
-                                        <TableColumn prefWidth="91.33334350585938" text="Kategori" />
-                                          <TableColumn prefWidth="97.99996948242188" text="Jenis" />
-                                          <TableColumn prefWidth="115.99996948242188" text="Jumlah" />
-                                          <TableColumn prefWidth="252.6666259765625" text="Deskripsi" />
+                                        <TableColumn fx:id="colTanggal" prefWidth="94.0" text="Tanggal" />
+                                        <TableColumn fx:id="colKategori" prefWidth="91.33334350585938" text="Kategori" />
+                                          <TableColumn fx:id="colJenis" prefWidth="97.99996948242188" text="Jenis" />
+                                          <TableColumn fx:id="colJumlah" prefWidth="115.99996948242188" text="Jumlah" />
+                                          <TableColumn fx:id="colCatatan" prefWidth="252.6666259765625" text="Deskripsi" />
                                       </columns>
                                     </TableView>
                                  </children>
