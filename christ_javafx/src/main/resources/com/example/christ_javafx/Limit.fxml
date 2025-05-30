@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<!--<?import java.lang.*?>-->
+<!--<?import java.util.*?>-->
+<!--<?import javafx.scene.*?>-->
+<!--<?import javafx.scene.control.*?>-->
+<!--<?import javafx.scene.layout.*?>-->
 
-<?import javafx.geometry.Insets?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.christ_javafx.LimitController"
-      spacing="15" alignment="CENTER"
-      prefHeight="400.0" prefWidth="600.0"
-      style="-fx-background-color: #FFDBDB;">
+<!--<?import javafx.geometry.Insets?>-->
+<!--<VBox xmlns="http://javafx.com/javafx"-->
+<!--      xmlns:fx="http://javafx.com/fxml"-->
+<!--      fx:controller="com.example.christ_javafx.LimitController"-->
+<!--      spacing="15" alignment="CENTER"-->
+<!--      prefHeight="400.0" prefWidth="600.0"-->
+<!--      style="-fx-background-color: #FFDBDB;">-->
 
-    <padding>
-        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
-    </padding>
+<!--    <padding>-->
+<!--        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />-->
+<!--    </padding>-->
 
-    <Label text="Atur Batas Pengeluaran Bulanan" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+<!--    <Label text="Atur Batas Pengeluaran Bulanan" style="-fx-font-size: 18px; -fx-font-weight: bold;" />-->
 
-    <TextField fx:id="limitField" promptText="Masukkan batas (contoh: 500000)" />
+<!--    <TextField fx:id="limitField" promptText="Masukkan batas (contoh: 500000)" />-->
 
-    <Button text="Simpan Batas" onAction="#handleSaveLimit" />
+<!--    <Button text="Simpan Batas" onAction="#handleSaveLimit" />-->
 
-    <Label fx:id="statusLabel" text="Status batas pengeluaran akan muncul di sini" wrapText="true" />
+<!--    <Label fx:id="statusLabel" text="Status batas pengeluaran akan muncul di sini" wrapText="true" />-->
 
-</VBox>
+<!--</VBox>-->

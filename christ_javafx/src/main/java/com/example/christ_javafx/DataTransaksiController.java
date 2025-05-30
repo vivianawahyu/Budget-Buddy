@@ -155,10 +155,39 @@ public class DataTransaksiController {
             }
 
             tableTransaksi.setItems(transaksiList);
+            cekStatusPengeluaran();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    private void cekStatusPengeluaran() {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db")) {
+            PreparedStatement batasStmt = conn.prepareStatement("SELECT jumlah FROM batas_pengeluaran WHERE user_id = ?");
+            batasStmt.setInt(1, 1);
+            ResultSet batasRs = batasStmt.executeQuery();
+
+            double batas = batasRs.next() ? batasRs.getDouble("batas") : -1;
+
+            if (batas != -1) {
+                PreparedStatement totalStmt = conn.prepareStatement("SELECT SUM(amount) as total FROM transaksi WHERE user_id = ? AND type = 'Pengeluaran'");
+                totalStmt.setInt(1, 1);
+                ResultSet totalRs = totalStmt.executeQuery();
+
+                double totalPengeluaran = totalRs.next() ? totalRs.getDouble("total") : 0;
+
+                if (totalPengeluaran > batas) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Status Pengeluaran");
+                    alert.setHeaderText("Pengeluaran Melebihi Batas!");
+                    alert.setContentText("Total pengeluaran Anda saat ini adalah: Rp " + totalPengeluaran + ", melebihi batas: Rp " + batas);
+                    alert.showAndWait();
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

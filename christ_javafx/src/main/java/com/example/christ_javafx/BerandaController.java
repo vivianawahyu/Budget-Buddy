@@ -241,6 +241,42 @@ public class BerandaController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        // ----------- Cek batas pengeluaran -------------
+        Map<String, Double> pengeluaranPerKategori = new HashMap<>();
+
+        for (Transaksi t : transaksiList) {
+            if (t.getJenis().equalsIgnoreCase("Pengeluaran")) {
+                pengeluaranPerKategori.merge(t.getKategori(), t.getJumlah(), Double::sum);
+            }
+        }
+
+        String queryBatas = "SELECT kategori, jumlah FROM batas_pengeluaran WHERE user_id = 1";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db");
+             PreparedStatement pstmt = conn.prepareStatement(queryBatas);
+             ResultSet rsBatas = pstmt.executeQuery()) {
+
+            while (rsBatas.next()) {
+                String kategori = rsBatas.getString("kategori");
+                double jumlah = rsBatas.getDouble("jumlah"); // ← diperbaiki
+
+                double totalKategori = pengeluaranPerKategori.getOrDefault(kategori, 0.0);
+                if (totalKategori > jumlah) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Peringatan Pengeluaran");
+                    alert.setHeaderText("Batas Terlampaui!");
+                    alert.setContentText("Pengeluaran untuk kategori '" + kategori + "' telah melebihi batas: Rp "
+                            + String.format("%,.0f", jumlah) + "\nTotal saat ini: Rp " + String.format("%,.0f", totalKategori));
+                    alert.show();
+
+                    System.out.println("Kategori: " + kategori + ", Batas: " + jumlah + ", Total pengeluaran: " + totalKategori);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
