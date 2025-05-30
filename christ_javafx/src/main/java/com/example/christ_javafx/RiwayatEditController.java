@@ -53,9 +53,15 @@ public class RiwayatEditController {
         colSebelum.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().getCatatanLama() + " - " + cellData.getValue().getJumlahLama()
         ));
-        colSesudah.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getCatatanBaru() + " - " + cellData.getValue().getJumlahBaru()
-        ));
+        colSesudah.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getJumlahBaru() <= 0) {
+                return new SimpleStringProperty("Dihapus");
+            }
+           return new SimpleStringProperty(
+                   cellData.getValue().getCatatanBaru() + " - " + cellData.getValue().getJumlahBaru()
+           );
+
+        });
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db")) {
             Statement stmt = conn.createStatement();
