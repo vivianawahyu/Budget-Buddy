@@ -60,20 +60,36 @@ public class BerandaController {
     private BarChart<String, Number> barChartKeuangan;
 
     @FXML
-    void handleLogOut(ActionEvent event) {
+    void handleLogOut(MouseEvent event) {
         try {
-            // Load tampilan Login
-            Parent loginView = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Scene loginScene = new Scene(loginView);
+            // (Opsional) Reset sesi user kalau kamu pakai sistem login
+            // SessionManager.clear();
 
-            // Ambil stage saat ini dari button yang ditekan
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Tampilkan alert konfirmasi
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Logout");
+            alert.setHeaderText(null);
+            alert.setContentText("Kamu berhasil logout.");
+            alert.showAndWait();
 
-            // Set scene baru
-            window.setScene(loginScene);
-            window.show();
+            // Load tampilan login dengan path absolut
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/christ_javafx/login.fxml"));
+            Parent loginRoot = loader.load();
+
+            Scene loginScene = new Scene(loginRoot);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.setScene(loginScene);
+            currentStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+
+            // Tampilkan alert error ke user
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Gagal Logout");
+            alert.setContentText("Terjadi kesalahan saat kembali ke halaman login.");
+            alert.showAndWait();
         }
     }
 
