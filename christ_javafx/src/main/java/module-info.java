@@ -8,7 +8,7 @@ module com.example.christ_javafx {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
+//    requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;

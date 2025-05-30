@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TextField?>
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #FFDCDC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.christ_javafx.EditController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
+        <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints />
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints />
+        </columnConstraints>
+        <children>
+            <Label text="Kategori:" GridPane.rowIndex="1" />
+            <Label text="Isi:" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="cbKategori" prefHeight="11.0" prefWidth="385.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="txtAreaKonten" prefHeight="129.0" prefWidth="385.0" promptText="Isi" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <Label text="Tipe :" />
+            <ChoiceBox fx:id="cbTipe" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+         <Label text="Jumlah :" GridPane.rowIndex="2" />
+            <TextField fx:id="txtJumlah" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <Label text="Tanggal :" GridPane.rowIndex="3" />
+         <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="387.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        </children>
+    </GridPane>
+    <HBox alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="200.0">
+        <Button fx:id="btnHapus" onAction="#onBtnHapus" text="Hapus">
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Button>
+        <Button fx:id="btnGrafik" onAction="#onPieChartCLicked" text="Simpan">
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Button>
+    </HBox>
+    <StackPane styleClass="highlight-rectangle" />
+</VBox>
