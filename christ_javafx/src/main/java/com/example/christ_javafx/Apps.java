@@ -1,5 +1,7 @@
 package com.example.christ_javafx;
 
+import Data.SessionManager;
+import Data.SessionStorage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +13,14 @@ public class Apps extends Application {
 
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
-        showLogin();
+
+        // Cek session tersimpan
+        if (SessionStorage.loadSession()) {
+            System.out.println("Session ditemukan, user: " + SessionManager.getInstance().getUsername());
+            showberanda();
+        } else {
+            showLogin();
+        }
     }
 
     public static void showLogin() {

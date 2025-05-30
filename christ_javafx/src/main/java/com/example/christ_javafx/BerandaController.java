@@ -1,5 +1,7 @@
 package com.example.christ_javafx;
 
+import Data.SessionManager;
+import Data.SessionStorage;
 import Data.Transaksi;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,11 +63,10 @@ public class BerandaController {
 
     @FXML
     void handleLogOut(MouseEvent event) {
-        try {
-            // (Opsional) Reset sesi user kalau kamu pakai sistem login
-            // SessionManager.clear();
+        SessionManager.getInstance().logout();
+        SessionStorage.clearSession();
 
-            // Tampilkan alert konfirmasi
+        try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Logout");
             alert.setHeaderText(null);
@@ -169,9 +170,13 @@ public class BerandaController {
         ObservableList<Transaksi> transaksiList = FXCollections.observableArrayList();
         double totalPemasukan = 0;
         double totalPengeluaran = 0;
+
+        int userId = SessionManager.getInstance().getUserId();
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db");
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM transaksi WHERE user_id = 1 ORDER BY tgl_transaksi DESC")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM transaksi WHERE user_id = ? ORDER BY tgl_transaksi DESC")) {
+
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Transaksi t = new Transaksi(
@@ -209,10 +214,11 @@ public class BerandaController {
             seriesPengeluaran.setName("Pengeluaran");
 
             String queryBulan = "SELECT strftime('%Y-%m', tgl_transaksi) AS bulan, type, SUM(amount) AS total " +
-                    "FROM transaksi WHERE user_id = 1 GROUP BY bulan, type ORDER BY bulan";
+                    "FROM transaksi WHERE user_id = ? GROUP BY bulan, type ORDER BY bulan";
 
-            try (Statement stmt2 = conn.createStatement();
-                 ResultSet rs2 = stmt2.executeQuery(queryBulan)) {
+            try (PreparedStatement stmt2 = conn.prepareStatement(queryBulan)) {
+                stmt2.setInt(1, userId);
+                ResultSet rs2 = stmt2.executeQuery();
 
                 Map<String, Double> mapPemasukan = new LinkedHashMap<>();
                 Map<String, Double> mapPengeluaran = new LinkedHashMap<>();
@@ -267,7 +273,7 @@ public class BerandaController {
             }
         }
 
-        String queryBatas = "SELECT kategori, jumlah FROM batas_pengeluaran WHERE user_id = 1";
+        String queryBatas = "SELECT kategori, jumlah FROM batas_pengeluaran WHERE user_id = ?";
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db");
              PreparedStatement pstmt = conn.prepareStatement(queryBatas);

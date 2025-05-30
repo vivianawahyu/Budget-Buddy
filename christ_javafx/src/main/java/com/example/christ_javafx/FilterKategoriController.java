@@ -1,5 +1,7 @@
 package com.example.christ_javafx;
 
+import Data.SessionManager;
+import Data.SessionStorage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,20 +46,35 @@ public class FilterKategoriController {
     private ToggleGroup jenisGroup;
 
     @FXML
-    void handleLogOut(ActionEvent event) {
+    void handleLogOut(MouseEvent event) {
+        SessionManager.getInstance().logout();
+        SessionStorage.clearSession();
+
         try {
-            // Load tampilan Login
-            Parent loginView = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Scene loginScene = new Scene(loginView);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Logout");
+            alert.setHeaderText(null);
+            alert.setContentText("Kamu berhasil logout.");
+            alert.showAndWait();
 
-            // Ambil stage saat ini dari button yang ditekan
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Load tampilan login dengan path absolut
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/christ_javafx/login.fxml"));
+            Parent loginRoot = loader.load();
 
-            // Set scene baru
-            window.setScene(loginScene);
-            window.show();
+            Scene loginScene = new Scene(loginRoot);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.setScene(loginScene);
+            currentStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+
+            // Tampilkan alert error ke user
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Gagal Logout");
+            alert.setContentText("Terjadi kesalahan saat kembali ke halaman login.");
+            alert.showAndWait();
         }
     }
 
@@ -104,8 +121,9 @@ public class FilterKategoriController {
     @FXML
     public void applyFilters() {
         ObservableList<Transaksi> filteredData = FXCollections.observableArrayList();
+        int userId = SessionManager.getInstance().getUserId();
 
-        String sql = "SELECT * FROM transaksi WHERE user_id = 1";
+        String sql = "SELECT * FROM transaksi WHERE user_id = " + userId;
         StringBuilder queryBuilder = new StringBuilder(sql);
 
         // Jenis transaksi
@@ -131,7 +149,7 @@ public class FilterKategoriController {
 
         if (!kategoriBuilder.isEmpty()) {
             kategoriBuilder.setLength(kategoriBuilder.length() - 1); // hapus koma terakhir
-            queryBuilder.append(" AND kategori IN (").append(kategoriBuilder).append(")");
+            queryBuilder.append(" AND kategori IN (").append(kategoriBuilder.toString()).append(")");
         }
 
         // Kata kunci

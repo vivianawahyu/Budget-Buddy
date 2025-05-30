@@ -1,5 +1,7 @@
 package com.example.christ_javafx;
 
+import Data.SessionManager;
+import Data.SessionStorage;
 import Data.SqlDriver;
 import Data.Transaksi;
 import javafx.collections.FXCollections;
@@ -97,20 +99,35 @@ public class DataTransaksiController {
     }
 
     @FXML
-    void handleLogOut(ActionEvent event) {
+    void handleLogOut(MouseEvent event) {
+        SessionManager.getInstance().logout();
+        SessionStorage.clearSession();
+
         try {
-            // Load tampilan Login
-            Parent loginView = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Scene loginScene = new Scene(loginView);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Logout");
+            alert.setHeaderText(null);
+            alert.setContentText("Kamu berhasil logout.");
+            alert.showAndWait();
 
-            // Ambil stage saat ini dari button yang ditekan
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Load tampilan login dengan path absolut
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/christ_javafx/login.fxml"));
+            Parent loginRoot = loader.load();
 
-            // Set scene baru
-            window.setScene(loginScene);
-            window.show();
+            Scene loginScene = new Scene(loginRoot);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.setScene(loginScene);
+            currentStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+
+            // Tampilkan alert error ke user
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Gagal Logout");
+            alert.setContentText("Terjadi kesalahan saat kembali ke halaman login.");
+            alert.showAndWait();
         }
     }
 
@@ -129,11 +146,16 @@ public class DataTransaksiController {
 
     private void loadData() {
         ObservableList<Transaksi> transaksiList = FXCollections.observableArrayList();
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db");
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM transaksi WHERE user_id = 1")) {
+        int userId = SessionManager.getInstance().getUserId();
+        System.out.println("🔍 Memuat data transaksi untuk user ID: " + userId);
+        String sql = "SELECT * FROM transaksi WHERE user_id = ?";
 
-            if (rs != null) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            {
                 while (rs.next()) {
                     Transaksi t = new Transaksi(
                             rs.getInt("id_t"),
@@ -145,13 +167,6 @@ public class DataTransaksiController {
                     );
                     transaksiList.add(t);
                 }
-
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Tidak Ditemukan");
-                alert.showAndWait();
             }
 
             tableTransaksi.setItems(transaksiList);
@@ -163,16 +178,18 @@ public class DataTransaksiController {
     }
 
     private void cekStatusPengeluaran() {
+        int userId = SessionManager.getInstance().getUserId();
+
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db")) {
             PreparedStatement batasStmt = conn.prepareStatement("SELECT jumlah FROM batas_pengeluaran WHERE user_id = ?");
-            batasStmt.setInt(1, 1);
+            batasStmt.setInt(1, userId);
             ResultSet batasRs = batasStmt.executeQuery();
 
-            double batas = batasRs.next() ? batasRs.getDouble("batas") : -1;
+            double batas = batasRs.next() ? batasRs.getDouble("jumlah") : -1;
 
             if (batas != -1) {
                 PreparedStatement totalStmt = conn.prepareStatement("SELECT SUM(amount) as total FROM transaksi WHERE user_id = ? AND type = 'Pengeluaran'");
-                totalStmt.setInt(1, 1);
+                totalStmt.setInt(1, userId);
                 ResultSet totalRs = totalStmt.executeQuery();
 
                 double totalPengeluaran = totalRs.next() ? totalRs.getDouble("total") : 0;
