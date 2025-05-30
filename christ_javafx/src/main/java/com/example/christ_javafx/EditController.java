@@ -35,7 +35,7 @@ public class EditController {
 
     @FXML
     public void initialize() {
-        cbKategori.getItems().addAll("Makanan", "Transportasi", "Belanja", "Lainnya");
+        cbKategori.getItems().addAll("Gaji", "Tabungan", "Belanja", "Makanan & Minuman");
         cbTipe.getItems().addAll("Pemasukan", "Pengeluaran");
     }
 

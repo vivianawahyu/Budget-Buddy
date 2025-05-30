@@ -123,19 +123,19 @@ public class Apps extends Application {
 
     }
 
-    public static void showLimit() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/Limit.fxml"));
-            Scene scene = new Scene((Parent)loader.load());
-            primaryStage.setResizable(false);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Limit");
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
+//    public static void showLimit() {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/Limit.fxml"));
+//            Scene scene = new Scene((Parent)loader.load());
+//            primaryStage.setResizable(false);
+//            primaryStage.setScene(scene);
+//            primaryStage.setTitle("Limit");
+//            primaryStage.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     public static void showlupaPassword() {
         try {
@@ -151,19 +151,19 @@ public class Apps extends Application {
 
     }
 
-    public static void showRingkasan() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/Ringkasan.fxml"));
-            Scene scene = new Scene((Parent)loader.load());
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.setTitle("Ringkasan");
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
+//    public static void showRingkasan() {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/Ringkasan.fxml"));
+//            Scene scene = new Scene((Parent)loader.load());
+//            primaryStage.setScene(scene);
+//            primaryStage.setResizable(false);
+//            primaryStage.setTitle("Ringkasan");
+//            primaryStage.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     public static void showRiwayatEdit() {
         try {

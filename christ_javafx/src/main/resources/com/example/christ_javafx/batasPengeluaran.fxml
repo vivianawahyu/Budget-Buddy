@@ -90,23 +90,25 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font></Label>
                                 <Pane layoutX="3.0" layoutY="215.0" prefHeight="189.0" prefWidth="499.0" />
-                                <TableView layoutX="2.0" layoutY="143.0" prefHeight="299.0" prefWidth="605.0">
+                                <TableView fx:id="batasTable" layoutX="2.0" layoutY="143.0" prefHeight="299.0" prefWidth="605.0">
                                     <columns>
-                                        <TableColumn prefWidth="75.0" text="ID" />
-                                        <TableColumn prefWidth="75.0" text="Tanggal" />
-                                        <TableColumn prefWidth="75.0" text="Kategori" />
-                                        <TableColumn prefWidth="98.0" text="Jenis Transaksi" />
-                                        <TableColumn prefWidth="109.3333740234375" text="Jumlah" />
-                                        <TableColumn prefWidth="170.0" text="Catatan" />
+                                        <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="colTanggal" prefWidth="75.0" text="Tanggal" />
+                                        <TableColumn fx:id="colKategori" prefWidth="75.0" text="Kategori" />
+<!--                                        <TableColumn prefWidth="98.0" text="Jenis Transaksi" />-->
+                                        <TableColumn fx:id="colJumlah" prefWidth="109.3333740234375" text="Jumlah" />
+<!--                                        <TableColumn prefWidth="170.0" text="Catatan" />-->
                                     </columns>
                                 </TableView>
                                 <Label layoutX="14.0" layoutY="23.0" prefHeight="18.0" prefWidth="324.0" text="Tetapkan batas pengeluaran bulanan dengan kategori" />
                         <Label layoutX="14.0" layoutY="50.0" prefHeight="18.0" prefWidth="55.0" text="Jumlah  :" />
-                        <TextField layoutX="137.0" layoutY="47.0" prefHeight="24.0" prefWidth="331.0" promptText="Rp 0" />
+                        <TextField fx:id="jumlahField" layoutX="137.0" layoutY="47.0" prefHeight="24.0" prefWidth="331.0" promptText="Rp 0" />
                         <Label layoutX="14.0" layoutY="77.0" prefHeight="19.0" prefWidth="114.0" text="Kategori (opsional) :" />
-                        <ComboBox layoutX="137.0" layoutY="74.0" prefHeight="4.0" prefWidth="119.0" promptText="Pilih Kategori" />
-                        <Button layoutX="524.0" layoutY="74.0" mnemonicParsing="false" text="Simpan" />
+                        <ComboBox fx:id="kategoriComboBox" layoutX="137.0" layoutY="74.0" prefHeight="4.0" prefWidth="119.0" promptText="Pilih Kategori" />
+                        <Button onAction="#handleSimpanBatas" layoutX="524.0" layoutY="74.0" mnemonicParsing="false" text="Simpan" />
+                                <Button onAction="#handleHapusBatas" layoutX="524.0" layoutY="110.0" mnemonicParsing="false" text="Hapus"/>
                         <Label layoutX="14.0" layoutY="5.0" prefHeight="18.0" prefWidth="147.0" text="Atur Batas Penggunaan">
+                            <Label fx:id="labelBatas" layoutX="50" layoutY="50" text="Rp 0" />
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
