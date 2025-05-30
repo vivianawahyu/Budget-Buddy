@@ -28,7 +28,7 @@
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                  <Button layoutX="764.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleLogOut" style="-fx-background-color: white;" text="Logout" />
+<!--                  <Button layoutX="764.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleLogOut" style="-fx-background-color: white;" text="Logout" />-->
                     </children>
                 </Pane>
             </top>
@@ -230,7 +230,7 @@
                         </Pane>
                         <Pane layoutX="10.0" layoutY="471.0" prefHeight="37.0" prefWidth="670.0" style="-fx-background-color: white;">
                            <children>
-                              <Label layoutX="14.0" layoutY="5.0" text="Status Pengeluaran : Aman">
+                              <Label layoutX="14.0" layoutY="5.0" text="">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
