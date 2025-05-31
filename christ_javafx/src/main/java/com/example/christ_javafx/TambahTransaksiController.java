@@ -1,5 +1,6 @@
 package com.example.christ_javafx;
 
+import Data.SessionManager;
 import Data.SqlDriver;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -120,7 +121,10 @@ public class TambahTransaksiController {
             stmt.setDouble(3, amount);
             stmt.setString(4, note);
             stmt.setString(5, tgl_transaksi);
-            stmt.setString(6, String.valueOf(1));
+
+            int userId = SessionManager.getInstance().getUserId();
+            System.out.println("[DEBUG] userId yang akan disimpan: " + userId);
+            stmt.setInt(6, userId);
 
             stmt.executeUpdate();
             conn.close();

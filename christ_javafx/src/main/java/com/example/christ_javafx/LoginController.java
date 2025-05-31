@@ -1,6 +1,8 @@
 package com.example.christ_javafx;
 
 import Data.SqlDriver;
+import Data.SessionManager;
+import Data.SessionStorage;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -29,7 +31,13 @@ public class LoginController {
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.next()) {
+                    int userId = rs.getInt("id_u");
+                    String username = rs.getString("username");
                     System.out.println("✅ Login sukses sebagai " + user);
+
+                    SessionManager.getInstance().login(userId, username);
+                    SessionStorage.saveSession(userId, username);
+
                     // Simpan ID pengguna ke sesi global jika perlu
                     Apps.showberanda(); // Ganti dengan tampilan utama aplikasi Anda
                 } else {

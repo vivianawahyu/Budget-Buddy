@@ -1,6 +1,8 @@
 package com.example.christ_javafx;
 
 import Data.RiwayatEdit;
+import Data.SessionManager;
+import Data.SessionStorage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,9 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,20 +91,35 @@ public class RiwayatEditController {
     }
 
     @FXML
-    void handleLogOut(ActionEvent event) {
+    void handleLogOut(MouseEvent event) {
+        SessionManager.getInstance().logout();
+        SessionStorage.clearSession();
+
         try {
-            // Load tampilan Login
-            Parent loginView = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Scene loginScene = new Scene(loginView);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Logout");
+            alert.setHeaderText(null);
+            alert.setContentText("Kamu berhasil logout.");
+            alert.showAndWait();
 
-            // Ambil stage saat ini dari button yang ditekan
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Load tampilan login dengan path absolut
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/christ_javafx/login.fxml"));
+            Parent loginRoot = loader.load();
 
-            // Set scene baru
-            window.setScene(loginScene);
-            window.show();
+            Scene loginScene = new Scene(loginRoot);
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.setScene(loginScene);
+            currentStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+
+            // Tampilkan alert error ke user
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Gagal Logout");
+            alert.setContentText("Terjadi kesalahan saat kembali ke halaman login.");
+            alert.showAndWait();
         }
     }
 
