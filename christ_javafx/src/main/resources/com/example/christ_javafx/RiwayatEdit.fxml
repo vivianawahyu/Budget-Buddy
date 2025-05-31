@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="489.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.christ_javafx.RiwayatEditController">
     <children>
-        <BorderPane layoutX="-1.0" layoutY="-1.0" prefHeight="489.0" prefWidth="747.0">
+        <BorderPane layoutX="-1.0" layoutY="-1.0" prefHeight="490.0" prefWidth="833.0">
             <top>
                 <Pane prefHeight="45.0" prefWidth="703.0" style="-fx-background-color: pink;" BorderPane.alignment="CENTER">
                     <children>
@@ -80,21 +80,22 @@
             <center>
                 <Pane prefHeight="249.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane layoutX="-1.0" layoutY="1.0" prefHeight="442.0" prefWidth="606.0" style="-fx-background-color: #EAEFEF;">
+                        <Pane layoutX="-1.0" layoutY="1.0" prefHeight="442.0" prefWidth="690.0" style="-fx-background-color: #EAEFEF;">
                             <children>
                                 <Label layoutX="12.0" layoutY="5.0" prefHeight="18.0" prefWidth="92.0" text="Riwayat Edit ">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
                                 <Pane layoutX="3.0" layoutY="215.0" prefHeight="189.0" prefWidth="499.0" />
-                                  <TableView fx:id="tableRiwayat" layoutX="2.0" layoutY="56.0" prefHeight="379.0" prefWidth="596.0">
+                                  <TableView fx:id="tableRiwayat" layoutX="2.0" layoutY="56.0" prefHeight="379.0" prefWidth="686.0">
                                       <columns>
-                                          <TableColumn fx:id="colTanggalEdit" prefWidth="75.0" text="Tanggal " />
-                                          <TableColumn fx:id="colIdTransaksi" prefWidth="75.0" text="ID " />
-                                          <TableColumn fx:id="colAksi" prefWidth="75.0" text="Aksi" />
-                                          <TableColumn fx:id="colSebelum" prefWidth="189.3333740234375" text="Sebelum" />
-                                          <TableColumn fx:id="colSesudah" prefWidth="189.3333740234375" text="Sesudah" />
-                              <TableColumn prefWidth="189.3333740234375" text="Sesudah" />
+                                          <TableColumn fx:id="colIdTransaksi" prefWidth="35.200010776519775" text="ID " />
+                                          <TableColumn fx:id="colAksi" prefWidth="71.20001220703125" text="Aksi" />
+                                          <TableColumn fx:id="colSebelum" prefWidth="211.20001983642578" text=" Catatan Sebelum" />
+                                          <TableColumn fx:id="colSesudah" prefWidth="164.00003051757812" text="Catatan Sesudah" />
+                                          <TableColumn fx:id="colTanggalEdit" prefWidth="99.99996948242188" text="Tanggal Update " />
+                                          <TableColumn fx:id="colTanggalDelete" prefWidth="108.0" text="Tanggal Delete" />
+                              <TableColumn prefWidth="196.0" />
                                       </columns>
                                   </TableView>
                         <Label layoutX="12.0" layoutY="38.0" prefHeight="18.0" prefWidth="129.0" text="Tabel Riwayat Edit">

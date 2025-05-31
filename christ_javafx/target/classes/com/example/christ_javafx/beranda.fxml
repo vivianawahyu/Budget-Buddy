@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.chart.BarChart?>
 <AnchorPane prefHeight="552.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.christ_javafx.BerandaController">
     <children>
         <BorderPane layoutX="-1.0" prefHeight="562.0" prefWidth="836.0">
@@ -178,10 +177,10 @@
                                  <children>
                                      <BarChart fx:id="barChartKeuangan" layoutX="14.0" layoutY="180.0" prefHeight="320.0" prefWidth="500.0" title="Grafik Keuangan Bulanan">
                                          <xAxis>
-                                             <CategoryAxis label="Bulan"/>
+                                             <CategoryAxis label="Bulan" />
                                          </xAxis>
                                          <yAxis>
-                                             <NumberAxis label="Jumlah (Rp)"/>
+                                             <NumberAxis label="Jumlah (Rp)" />
                                          </yAxis>
                                      </BarChart>
                                  </children>
@@ -235,6 +234,20 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="14.0" layoutY="1.0" prefHeight="35.0" prefWidth="219.0" text="Status Batas Pengeluaran :">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblBatasPengeluaran" layoutX="233.0" prefHeight="35.0" prefWidth="323.0" text="Aman">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="aturBatasButton" layoutX="512.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleBatasPengeluaran" prefHeight="25.0" prefWidth="144.0" text="Atur Batas Pengeluaran" visible="false" />
                            </children>
                         </Pane>
                             </children>

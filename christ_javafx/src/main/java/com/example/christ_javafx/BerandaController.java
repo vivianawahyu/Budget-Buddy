@@ -15,10 +15,7 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.*;
@@ -32,6 +29,12 @@ public class BerandaController {
 
     @FXML
     private PieChart PieChart;
+
+    @FXML
+    private Label lblBatasPengeluaran;
+
+    @FXML
+    private Button aturBatasButton;
 
     @FXML
     private TableView<Transaksi> tableTransaksi;
@@ -295,9 +298,52 @@ public class BerandaController {
                     System.out.println("Kategori: " + kategori + ", Batas: " + jumlah + ", Total pengeluaran: " + totalKategori);
                 }
             }
+            cekStatusPengeluaran();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cekStatusPengeluaran() {
+        int userId = SessionManager.getInstance().getUserId();
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db")) {
+            // Ambil batas untuk kategori "Semua"
+            PreparedStatement batasStmt = conn.prepareStatement(
+                    "SELECT jumlah FROM batas_pengeluaran WHERE user_id = ? AND kategori = 'Semua'"
+            );
+            batasStmt.setInt(1, userId);
+            ResultSet batasRs = batasStmt.executeQuery();
+
+            double batas = batasRs.next() ? batasRs.getDouble("jumlah") : -1;
+
+            if (batas != -1) {
+                PreparedStatement totalStmt = conn.prepareStatement(
+                        "SELECT SUM(amount) as total FROM transaksi WHERE user_id = ? AND type = 'Pengeluaran'"
+                );
+                totalStmt.setInt(1, userId);
+                ResultSet totalRs = totalStmt.executeQuery();
+
+                double totalPengeluaran = totalRs.next() ? totalRs.getDouble("total") : 0;
+
+                if (totalPengeluaran > batas) {
+                    lblBatasPengeluaran.setText("Melewati batas pengeluaran");
+                    lblBatasPengeluaran.setStyle("-fx-text-fill: red;"); // opsional, warna merah
+                    aturBatasButton.setVisible(true);
+                } else {
+                    lblBatasPengeluaran.setText("Aman");
+                    lblBatasPengeluaran.setStyle("-fx-text-fill: green;");
+                }
+            } else {
+                lblBatasPengeluaran.setText("Belum ada batas pengeluaran");
+                lblBatasPengeluaran.setStyle("-fx-text-fill: gray;");
+                aturBatasButton.setVisible(true);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            lblBatasPengeluaran.setText("Error cek status");
+            lblBatasPengeluaran.setStyle("-fx-text-fill: gray;");
         }
     }
 

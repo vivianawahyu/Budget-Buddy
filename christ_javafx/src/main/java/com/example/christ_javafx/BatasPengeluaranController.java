@@ -50,7 +50,8 @@ public class BatasPengeluaranController {
     @FXML
     private void initialize() {
         // Inisialisasi ComboBox dengan kategori dummy (nanti bisa diambil dari DB)
-        kategoriComboBox.setItems(FXCollections.observableArrayList("Gaji", "Tabungan", "Belanja", "Makanan & Minuman"));
+        kategoriComboBox.setItems(FXCollections.observableArrayList("Semua"));
+        kategoriComboBox.getSelectionModel().selectFirst(); // default ke "Semua"
 
         colID.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getId()).asObject());
         colTanggal.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTanggal()));
@@ -67,6 +68,7 @@ public class BatasPengeluaranController {
 
     @FXML
     private void handleSimpanBatas() {
+        int userId = SessionManager.getInstance().getUserId();
         String kategori = kategoriComboBox.getValue();
         String jumlahText = jumlahField.getText();
 
@@ -80,13 +82,14 @@ public class BatasPengeluaranController {
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db")) {
             // Cek apakah sudah ada batas untuk kategori ini
-            PreparedStatement check = conn.prepareStatement("SELECT id FROM batas_pengeluaran WHERE user_id = 1 AND kategori = ?");
-            check.setString(1, kategori != null ? kategori : "Semua");
+            PreparedStatement check = conn.prepareStatement("SELECT id FROM batas_pengeluaran WHERE user_id = ? AND kategori = ?");
+            check.setInt(1, userId);
+            check.setString(2, kategori != null ? kategori : "Semua");
             ResultSet rs = check.executeQuery();
 
             if (rs.next()) {
                 // Update jika sudah ada
-                PreparedStatement update = conn.prepareStatement("UPDATE batas_pengeluaran SET jumlah = ?, tanggal = ? WHERE user_id = 1 AND kategori = ?");
+                PreparedStatement update = conn.prepareStatement("UPDATE batas_pengeluaran SET jumlah = ?, tanggal = ? WHERE user_id = ? AND kategori = ?");
                 update.setDouble(1, jumlah);
                 update.setString(2, tanggal);
                 update.setString(3, kategori != null ? kategori : "Semua");
@@ -97,7 +100,7 @@ public class BatasPengeluaranController {
                 ps.setString(1, kategori != null ? kategori : "Semua");
                 ps.setDouble(2, jumlah);
                 ps.setString(3, tanggal);
-                ps.setInt(4, 1); // user_id statis sementara
+                ps.setInt(4, userId); // user_id statis sementara
                 ps.executeUpdate();
             }
 
@@ -110,6 +113,7 @@ public class BatasPengeluaranController {
 
     @FXML
     private void handleHapusBatas() {
+        int userId = SessionManager.getInstance().getUserId();
         String kategori = kategoriComboBox.getValue(); // bisa null
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db")) {
@@ -118,14 +122,16 @@ public class BatasPengeluaranController {
 
             if (kategori == null || kategori.isEmpty()) {
                 // Hapus batas yang kategori-nya "Semua"
-                query = "DELETE FROM batas_pengeluaran WHERE user_id = 1 AND kategori = ?";
+                query = "DELETE FROM batas_pengeluaran WHERE user_id = ? AND kategori = ?";
                 stmt = conn.prepareStatement(query);
-                stmt.setString(1, "Semua");
+                stmt.setString(1, String.valueOf(userId));
+                stmt.setString(2, "Semua");
             } else {
                 // Hapus batas untuk kategori yang dipilih
-                query = "DELETE FROM batas_pengeluaran WHERE user_id = 1 AND kategori = ?";
+                query = "DELETE FROM batas_pengeluaran WHERE user_id = ? AND kategori = ?";
                 stmt = conn.prepareStatement(query);
-                stmt.setString(1, kategori);
+                stmt.setString(1, String.valueOf(userId));
+                stmt.setString(2, kategori);
             }
 
             int affected = stmt.executeUpdate();
@@ -147,11 +153,15 @@ public class BatasPengeluaranController {
     }
 
     private void loadBatas() {
+        int userId = SessionManager.getInstance().getUserId();
         ObservableList<Batas> list = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM batas_pengeluaran WHERE user_id = ? ORDER BY tanggal DESC";
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db");
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM batas_pengeluaran WHERE user_id = 1 ORDER BY tanggal DESC")) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
 
             while (rs.next()) {
                 Batas b = new Batas(
@@ -173,18 +183,21 @@ public class BatasPengeluaranController {
     }
 
     private void loadDataBatas() {
+        int userId = SessionManager.getInstance().getUserId();
         String kategori = kategoriComboBox.getValue();
 
-        String query = "SELECT jumlah FROM batas_pengeluaran WHERE user_id = 1";
+        String query = "SELECT jumlah FROM batas_pengeluaran WHERE user_id = ?";
         if (kategori != null && !kategori.isEmpty()) {
             query += " AND kategori = ?";
         }
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db");
              PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+
 
             if (kategori != null && !kategori.isEmpty()) {
-                stmt.setString(1, kategori);
+                stmt.setString(2, kategori);
             }
 
             ResultSet rs = stmt.executeQuery();
