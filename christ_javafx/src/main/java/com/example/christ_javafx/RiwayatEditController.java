@@ -10,19 +10,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javafx.scene.text.Text;
+
+import java.sql.*;
 
 import java.io.IOException;
 
@@ -30,6 +26,9 @@ public class RiwayatEditController {
 
     @FXML
     private TableColumn<RiwayatEdit, String> colTanggalEdit;
+
+    @FXML
+    private TableColumn<RiwayatEdit, String> colTanggalDelete;
 
     @FXML
     private TableColumn<RiwayatEdit, Integer> colIdTransaksi;
@@ -48,37 +47,42 @@ public class RiwayatEditController {
 
     @FXML
     public void initialize() {
+        int userId = SessionManager.getInstance().getUserId();
         ObservableList<RiwayatEdit> data = FXCollections.observableArrayList();
 
         // SETUP KOLOM ➤ cellValueFactory
         colTanggalEdit.setCellValueFactory(new PropertyValueFactory<>("tanggalEdit"));
         colIdTransaksi.setCellValueFactory(new PropertyValueFactory<>("idTransaksi"));
-        colAksi.setCellValueFactory(cellData -> new SimpleStringProperty("Edit")); // atau bisa lebih dinamis
-        colSebelum.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getCatatanLama() + " - " + cellData.getValue().getJumlahLama()
-        ));
-        colSesudah.setCellValueFactory(cellData -> {
-            if (cellData.getValue().getJumlahBaru() <= 0) {
-                return new SimpleStringProperty("Dihapus");
-            }
-           return new SimpleStringProperty(
-                   cellData.getValue().getCatatanBaru() + " - " + cellData.getValue().getJumlahBaru()
-           );
+        colAksi.setCellValueFactory(new PropertyValueFactory<>("aksi"));
+        colSebelum.setCellValueFactory(new PropertyValueFactory<>("sebelum"));
+        colSesudah.setCellValueFactory(new PropertyValueFactory<>("sesudah"));
+        colTanggalDelete.setCellValueFactory(new PropertyValueFactory<>("tanggalDelete"));
 
-        });
+        // 2) BIKIN method singkat untuk mengaktifkan “word wrap” pada kolom teks
+        //    lalu panggil sekali untuk colSebelum dan colSesudah
+        setupWrappingColumn(colSebelum);
+        setupWrappingColumn(colSesudah);
+
+        // 3) Pilihan: jika tabel kosong, tampilkan placeholder
+        tableRiwayat.setPlaceholder(new Label("Tidak ada riwayat edit atau hapus transaksi."));
+
+
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:budget_buddy_sqlite.db")) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM riwayat_edit");
+            PreparedStatement stms = conn.prepareStatement("SELECT * FROM log_transaksi WHERE user_id = ? ");
+            stms.setInt(1, userId);
+            ResultSet rs = stms.executeQuery();
 
             while (rs.next()) {
                 RiwayatEdit r = new RiwayatEdit(
-                        rs.getInt("id_transaksi"),
-                        rs.getString("tanggal_edit"),
-                        rs.getString("catatan_lama"),
-                        rs.getString("catatan_baru"),
-                        rs.getDouble("jumlah_lama"),
-                        rs.getDouble("jumlah_baru")
+                        rs.getInt("id_l"),
+                        rs.getInt("transaksi_id"),
+                        rs.getInt("user_id"),
+                        rs.getString("action"),
+                        rs.getString("note_before"),
+                        rs.getString("note_after"),
+                        rs.getString("tgl_update"),
+                        rs.getString("tgl_delete")
                 );
                 data.add(r);
             }
@@ -141,4 +145,37 @@ public class RiwayatEditController {
 
     @FXML
     public void handleBeranda () {Apps.showberanda();}
+
+
+    /**
+     * Method bantuan untuk membuat cell factory dengan Text node yang
+     * membungkus teks (word-wrap) di dalam sebuah TableColumn<RiwayatEdit, String>.
+     */
+    private void setupWrappingColumn(TableColumn<RiwayatEdit, String> column) {
+        column.setCellFactory(col -> {
+            TableCell<RiwayatEdit, String> cell = new TableCell<>() {
+                private final Text text = new Text();
+
+                {
+                    // Binding lebar pembungkus ke lebar kolom dikurangi sedikit padding
+                    text.wrappingWidthProperty().bind(col.widthProperty().subtract(10));
+                    setGraphic(text);
+                    // Biarkan tinggi baris dihitung otomatis berdasarkan kebutuhan isi (wrap text)
+                    setPrefHeight(Control.USE_COMPUTED_SIZE);
+                }
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        text.setText("");
+                    } else {
+                        text.setText(item);
+                    }
+                }
+            };
+            return cell;
+        });
+    }
+
 }

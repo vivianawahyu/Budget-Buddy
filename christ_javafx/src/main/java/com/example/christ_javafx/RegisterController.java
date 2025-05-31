@@ -2,6 +2,7 @@ package com.example.christ_javafx;
 
 import Data.SqlDriver;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.sql.Connection;
@@ -36,6 +37,11 @@ public class RegisterController {
                 ResultSet rs = checkStmt.executeQuery();
                 if (rs.next()) {
                     System.out.println("❌ Username sudah digunakan");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Username sudah dipakai");
+                    alert.setContentText("Username sudah dipakai, ganti username");
+                    alert.showAndWait();
                     return;
                 }
             }

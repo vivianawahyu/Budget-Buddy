@@ -4,6 +4,7 @@ import Data.SqlDriver;
 import Data.SessionManager;
 import Data.SessionStorage;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -41,7 +42,13 @@ public class LoginController {
                     // Simpan ID pengguna ke sesi global jika perlu
                     Apps.showberanda(); // Ganti dengan tampilan utama aplikasi Anda
                 } else {
-                    System.out.println("❌ Login gagal! Username atau password salah.");
+                    System.out.println("❌ Login gagal");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Username belum terdaftar");
+                    alert.setContentText("Registrasi terlebih dahulu");
+                    alert.showAndWait();
+                    return;
                 }
             }
 

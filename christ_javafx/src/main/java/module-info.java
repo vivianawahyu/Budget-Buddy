@@ -12,6 +12,7 @@ module com.example.christ_javafx {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;
+    requires itextpdf;
 
     opens com.example.christ_javafx to javafx.fxml;
     opens Data to javafx.base;

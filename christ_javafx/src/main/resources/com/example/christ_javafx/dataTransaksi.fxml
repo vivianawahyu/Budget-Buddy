@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -87,7 +88,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font></Label>
                                 <Pane layoutX="3.0" layoutY="215.0" prefHeight="189.0" prefWidth="499.0" />
-                                <TableView fx:id="tableTransaksi" onMouseClicked="#handleedit" layoutX="1.0" layoutY="67.0" prefHeight="375.0" prefWidth="606.0">
+                                <TableView fx:id="tableTransaksi" layoutX="1.0" layoutY="67.0" onMouseClicked="#handleedit" prefHeight="375.0" prefWidth="606.0">
                                     <columns>
                                         <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
                                         <TableColumn fx:id="colTanggal" prefWidth="75.0" text="Tanggal" />
@@ -102,6 +103,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
+                        <Button fx:id="exportPdfButton" layoutX="502.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleExportPDF" text="Export Pdf" />
                             </children>
                         </Pane>
                     </children>

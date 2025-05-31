@@ -36,9 +36,6 @@ public class TambahTransaksiController {
     private RadioButton idPengeluaran;
 
     @FXML
-    private ComboBox<Number> idUserId;
-
-    @FXML
     private DatePicker idTanggal;
 
     @FXML
