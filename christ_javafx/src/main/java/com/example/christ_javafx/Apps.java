@@ -146,11 +146,10 @@ public class Apps extends Application {
 //
 //    }
 
-    public static void showlupaPassword() {
+    public static void showLupaPassword() {
         try {
             FXMLLoader loader = new FXMLLoader(Apps.class.getResource("/com/example/christ_javafx/lupaPassword.fxml"));
-            Scene scene = new Scene((Parent)loader.load());
-            primaryStage.setResizable(false);
+            Scene scene = new Scene((Parent)loader.load(), (double)400.0F, (double)350.0F);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Lupa Password");
             primaryStage.show();

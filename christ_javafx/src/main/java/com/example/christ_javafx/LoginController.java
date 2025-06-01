@@ -62,6 +62,9 @@ public class LoginController {
     private void goToRegister() {
         Apps.showRegister();
     }
+
+    @FXML
+    private void goToLupaPassword(){Apps.showLupaPassword();}
 }
 
 //package com.example.christ_javafx;
